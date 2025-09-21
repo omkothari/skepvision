@@ -1,18 +1,16 @@
 import React from 'react';
-import Backvideo from '/assets/Backvideo.mp4';
 
-const Background = ({ onVideoLoaded }) => {
+const Background = () => {
   return (
     <div className='h-screen w-full fixed'>
       <video
-        src={Backvideo}
+        src="/assets/Backvideo.mp4"
         autoPlay
         preload="auto"
         muted
         playsInline
         loop
         className='h-full bg-black w-full object-cover pointer-events-none'
-        onLoadedData={onVideoLoaded}
       ></video>
     </div>
   );
