@@ -11,16 +11,14 @@ import { ReactLenis } from 'lenis/react';
 import Background from './components/Background';
 
 const App = () => {
-  const [assetsLoaded, setAssetsLoaded] = useState(false);
+  const [fontLoaded, setFontLoaded] = useState(false);
+  const [bgVideoLoaded, setBgVideoLoaded] = useState(false);
 
   useEffect(() => {
-    // Wait for font
-    document.fonts.load('1em "Tanker"').then(() => {
-      // Wait for other assets if needed (simulate with timeout or use actual asset loading)
-      // For demonstration, we'll use a timeout
-      setTimeout(() => setAssetsLoaded(true), 1000);
-    });
+    document.fonts.load('1em "Tanker"').then(() => setFontLoaded(true));
   }, []);
+
+  const assetsLoaded = fontLoaded && bgVideoLoaded;
 
   return (
     <>
@@ -28,7 +26,7 @@ const App = () => {
       {assetsLoaded && (
         <div>
           <ReactLenis root />
-          <Background />
+          <Background onVideoLoaded={() => setBgVideoLoaded(true)} />
           <div className='relative h-full min-h-screen py-[0.1px] w-full text-[#f1f1f1] font-["Tanker"] font-bold overflow-hidden'>
             <NavBar />
             <Home />
