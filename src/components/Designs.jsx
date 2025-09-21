@@ -8,10 +8,9 @@ import { motion } from 'framer-motion';
 
 const Designs = () => {
     const DesignsData = [
-      {video: "/assets/lays.mp4"},
+      {video: "/assets/controller.mp4"},
       {video: "/assets/aboutearphones.mp4"},
       {video: "/assets/headPhone.mp4"},
-      {video: "/assets/screen.mp4"},
     ]
 
   let currentTranslateX = 0; // initialize once globally
@@ -50,7 +49,7 @@ const HandelLeft =()=>{
 
 const HandelRight =()=>{
   const phone = document.querySelector('.phone');
-  if (currentTranslateX != -170)
+  if (currentTranslateX != -85)
       currentTranslateX -= 85;
   phone.style.transform= `translateX(${currentTranslateX}%)`
   console.log(currentTranslateX)

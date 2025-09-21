@@ -1,34 +1,46 @@
-import React from 'react'
-import './index.css'
-import NavBar from './components/NavBar'
-import Home from './components/Home'
-import Contact from './components/Contact'
-import About from './components/About'
-import Services from './components/Services'
-import Loading from './components/Loading'
-import Designs from './components/Designs'
-import { ReactLenis, useLenis } from 'lenis/react'
-import Background from './components/Background'
+import React, { useState, useEffect } from 'react';
+import './index.css';
+import NavBar from './components/NavBar';
+import Home from './components/Home';
+import Contact from './components/Contact';
+import About from './components/About';
+import Services from './components/Services';
+import Loading from './components/Loading';
+import Designs from './components/Designs';
+import { ReactLenis } from 'lenis/react';
+import Background from './components/Background';
+
 const App = () => {
+  const [assetsLoaded, setAssetsLoaded] = useState(false);
+
+  useEffect(() => {
+    // Wait for font
+    document.fonts.load('1em "Tanker"').then(() => {
+      // Wait for other assets if needed (simulate with timeout or use actual asset loading)
+      // For demonstration, we'll use a timeout
+      setTimeout(() => setAssetsLoaded(true), 1000);
+    });
+  }, []);
+
   return (
-     <>
-     <ReactLenis root />
-     <Background />
-    <div className='relative h-full min-h-screen py-[0.1px] w-full text-[#f1f1f1] font-["Tanker"] font-bold overflow-hidden'>
-      {/* <div className="absolute w-full h-full -z-1"> */}
-{/* <video src={Backvideo} autoPlay muted playsInline loop className='h-full bg-black w-full object-cover pointer-events-none'></video> */}
-        {/* </div> */}
+    <>
+      {!assetsLoaded && <Loading assetsLoaded={assetsLoaded} />}
+      {assetsLoaded && (
+        <div>
+          <ReactLenis root />
+          <Background />
+          <div className='relative h-full min-h-screen py-[0.1px] w-full text-[#f1f1f1] font-["Tanker"] font-bold overflow-hidden'>
+            <NavBar />
+            <Home />
+            <Designs />
+            <Services />
+            <About />
+            <Contact />
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
 
-      <Loading />
-      <NavBar />
-      <Home />
-      <Designs />
-      <Services />
-      <About />
-      <Contact />
-      </div>
-     </>
-  )
-}
-
-export default App
+export default App;

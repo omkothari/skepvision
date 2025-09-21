@@ -38,7 +38,7 @@ const About = () => {
       shadow-[0_0_0_2px_rgba(255,255,255,0.6),0_16px_32px_rgba(0,0,0,0.12)]
       backdrop-blur-[8px]
       text-white
-      lg:flex flex-col items-center z-10" whileHover={{ scale: 1.04 }}
+      lg:flex flex-col items-center z-10" whileHover={{ scale: 1.08 }}
       transition={{ type: "spring", stiffness: 200 }}> 
       
 
