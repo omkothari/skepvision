@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Load from '../assets/loading.mp4';
 import { motion } from 'framer-motion';
 
-const Loading = ({ assetsLoaded }) => {
+const Loading = ({ assetsLoaded, onVideoEnd }) => {
   const [videoEnded, setVideoEnded] = useState(false);
+  const videoRef = useRef(null);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -12,36 +13,38 @@ const Loading = ({ assetsLoaded }) => {
     };
   }, []);
 
-  // Hide loading when video ended AND assets loaded
-  const shouldHide = videoEnded && assetsLoaded;
+  const handleEnded = () => {
+    setVideoEnded(true);
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+    if (onVideoEnd) {
+      console.log('Loading video ended');
+      onVideoEnd();
+    }
+  };
 
+  // Hide loading when video ended AND assets loaded (handled in App.jsx)
   return (
     <motion.div
       initial={{ opacity: 1 }}
       animate={
-        shouldHide
+        videoEnded && assetsLoaded
           ? { opacity: 0, transition: { duration: 0.8, delay: 0.2 } }
           : { opacity: 1 }
       }
       className="vid fixed z-[999] h-screen w-full bg-black text-[#f1f1f1] flex items-center justify-center"
-      style={{ pointerEvents: shouldHide ? 'none' : 'auto' }}
+      style={{ pointerEvents: videoEnded && assetsLoaded ? 'none' : 'auto' }}
     >
-      {!videoEnded ? (
-        <video
-          className="h-full w-full"
-          src={Load}
-          autoPlay
-          playsInline
-          muted
-          onEnded={() => setVideoEnded(true)}
-        />
-      ) : (
-        // Spinner or static frame after video ends
-        <div className="flex flex-col items-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-white border-opacity-30"></div>
-          <span className="mt-4 text-lg">Loading assets...</span>
-        </div>
-      )}
+      <video
+        ref={videoRef}
+        className="h-full w-full"
+        src={Load}
+        autoPlay
+        playsInline
+        muted
+        onEnded={handleEnded}
+      />
     </motion.div>
   );
 };

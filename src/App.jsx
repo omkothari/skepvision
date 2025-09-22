@@ -12,6 +12,8 @@ import Background from './components/Background';
 
 const App = () => {
   const [fontLoaded, setFontLoaded] = useState(false);
+  const [bgVideoLoaded, setBgVideoLoaded] = useState(false);
+  const [loadingVideoEnded, setLoadingVideoEnded] = useState(false);
 
   useEffect(() => {
     document.fonts.load('1em "Tanker"').then(() => {
@@ -19,15 +21,25 @@ const App = () => {
     });
   }, []);
 
-  const assetsLoaded = fontLoaded;
+  const assetsLoaded = fontLoaded && bgVideoLoaded;
+  const showMainContent = assetsLoaded && loadingVideoEnded;
+
+  useEffect(() => {
+    console.log('fontLoaded:', fontLoaded, 'bgVideoLoaded:', bgVideoLoaded, 'assetsLoaded:', assetsLoaded);
+  }, [fontLoaded, bgVideoLoaded, assetsLoaded]);
 
   return (
     <>
-      {!assetsLoaded && <Loading assetsLoaded={assetsLoaded} />}
-      {assetsLoaded && (
+      <Background onVideoLoaded={() => setBgVideoLoaded(true)} />
+      {!showMainContent && (
+        <Loading
+          assetsLoaded={assetsLoaded}
+          onVideoEnd={() => setLoadingVideoEnded(true)}
+        />
+      )}
+      {showMainContent && (
         <div>
           <ReactLenis root />
-          <Background />
           <div className='relative h-full min-h-screen py-[0.1px] w-full text-[#f1f1f1] font-["Tanker"] font-bold overflow-hidden'>
             <NavBar />
             <Home />
