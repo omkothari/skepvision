@@ -9,6 +9,8 @@ import Loading from './components/Loading';
 import Designs from './components/Designs';
 import { ReactLenis } from 'lenis/react';
 import Background from './components/Background';
+import {Ana} from './components/Ana';
+
 
 const App = () => {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -31,6 +33,7 @@ const App = () => {
 
   return (
     <>
+      <Ana />
       <Background onVideoLoaded={() => setBgVideoLoaded(true)} />
       {!showMainContent && (
         <Loading
