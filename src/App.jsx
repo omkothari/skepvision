@@ -20,6 +20,7 @@ const App = () => {
       setFontLoaded(true);
     });
   }, []);
+  
 
   const assetsLoaded = fontLoaded && bgVideoLoaded;
   const showMainContent = assetsLoaded && loadingVideoEnded;
