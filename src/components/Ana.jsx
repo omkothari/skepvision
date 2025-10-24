@@ -16,10 +16,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-// Export a React component so App.jsx can render <Ana />
-export function Ana() {
-  // no UI required — initialization side-effect already ran above
-  return null;
-}
-
 export { app, analytics };
