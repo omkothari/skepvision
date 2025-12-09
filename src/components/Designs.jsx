@@ -9,8 +9,10 @@ import { motion } from 'framer-motion';
 const Designs = () => {
     const DesignsData = [
       {video: "/assets/controller.mp4"},
+      {video: "/assets/juice.mp4"},
       {video: "/assets/aboutearphones.mp4"},
       {video: "/assets/headPhone.mp4"},
+
     ]
 
   let currentTranslateX = 0; // initialize once globally
@@ -43,14 +45,19 @@ const HandelLeft =()=>{
   const phone = document.querySelector('.phone');
   if (currentTranslateX != 85)
     currentTranslateX -= -85;
+  else
+    currentTranslateX=-170
   phone.style.transform= `translateX(${currentTranslateX}%)`
    console.log(currentTranslateX)
 }
 
 const HandelRight =()=>{
   const phone = document.querySelector('.phone');
-  if (currentTranslateX != -85)
+  if (currentTranslateX != -170)
       currentTranslateX -= 85;
+  else
+    currentTranslateX=85
+
   phone.style.transform= `translateX(${currentTranslateX}%)`
   console.log(currentTranslateX)
 }
@@ -100,7 +107,7 @@ const handleVideo =(ind)=>{
 
             <div className="absolute bg-black z-5 h-[25%] sm:h-[15%] w-[20vw] lg:w-[20vw] sm:w-[20vw] rotate-[90deg] top-1/2 -translate-y-1/2 -translate-x-1/2 rounded-tl-[20px] rounded-tr-[20px] sm:rounded-tl-[40px] sm:rounded-tr-[40px]"></div>
 
-                <video key={index} className='h-full w-full rounded-[20px] sm:rounded-[50px] lg:rounded-[60px] object-cover bg-white border-4 border-gray-800 relative' src={design.video} autoPlay muted playsInline loop onDoubleClick={()=>{handleVideo(index)}}></video>
+                <video key={index} className='h-full w-full rounded-[20px] sm:rounded-[50px] lg:rounded-[60px] object-cover bg-white border-4 border-gray-800 relative' src={design.video} controls muted playsInline loop onDoubleClick={()=>{handleVideo(index)}}></video>
                 
                 </div>
    </div>
